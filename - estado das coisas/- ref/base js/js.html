@@ -1,0 +1,34 @@
+<html>
+<head>
+<style>
+body{
+	overflow: hidden;
+}
+</style>
+
+</head>
+<body>
+<img id="img" src="bussola.jpg" width="100%" height="auto" />
+
+<script type="text/javascript">
+var iteration = 0;
+
+var elem = document.getElementById("img");
+
+setInterval(function(){
+	iteration += 1;
+	if(iteration >= 360){
+		iteration = 0;
+	}
+	elem.style.webkitTransform = "rotate("+iteration+"deg)";
+	elem.style.MozTransform = "rotate("+iteration+"deg)";
+	elem.style.msTransform = "rotate("+iteration+"deg)";
+	elem.style.OTransform = "rotate("+iteration+"deg)";
+	elem.style.transform = "rotate("+iteration+"deg)";
+}, 20);
+
+</script>
+
+
+</body>
+</html>
