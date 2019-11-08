@@ -1,6 +1,28 @@
+/*
+  IDEIAS
+ – aceleração variável: 
+ basear a aceleração em quantidade de tweets sobre determinado assunto
+ – influência na direção de maior atração:
+ baseado em localização geográfica (?) dos tweets
+ – range entre duração mínima e máxima
+ valores próximos (eg. 10 - 30)
+ representam maioria de tweets com mesmo posicionamento
+ valores distantes (eg. 10 - 300)
+ representam variedade de posicionamentos
+ ponto na escala (eg. 10-30, 100-120, 300-320)
+ representa variação de posicionamento ao longo do tempo
+ 
+ 
+ FUTURO
+ implementação de sistema de física baseado em magnetismo
+ 
+ CONTEUDO
+ norte e sul global: representações cartográficas e mapas
+ */
+
 // - IMAGE
 PImage compass;
-float scale = 0.25;
+float scale = 0.6; //0.15 //0.6
 float offset_x = 0;
 float offset_y = 0;
 
@@ -8,28 +30,36 @@ float offset_y = 0;
 // -- GENERAL
 float angle = 0;
 float speed = 0;
-float acceleration = 0.02;
+float acceleration = 0.04;
 float speed_limit = 8;
 
 // -- COMPASS
 int duration = 0;
-int min_duration = 30;
-int max_duration = 150;
+int min_duration = 10;
+int max_duration = 80;
 int current_frame = 0;
 
 boolean allow_inversion = true;
+//float inc = 0;
 
+int video_duration = 24*200;
+
+String[] list;
+String path = "exp/07/";
 
 void setup() {
-  size(640, 480);
-  compass = loadImage("bussola.jpg");
+  //size(640, 480);
+  size(1920, 1080);
+  compass = loadImage("globe/g-04.jpg");
   compass.resize(int(compass.width*scale), int(compass.height*scale));
   frameRate(30);
 
   duration = int(random(min_duration, max_duration));
+  list = new String[video_duration];
 }
 
 void draw() {
+  background(7);
   updateCompass();
 
   /*
@@ -52,6 +82,16 @@ void draw() {
   popMatrix();
 
   current_frame++;
+  //inc+=0.01;
+  
+  if (frameCount < video_duration) {
+    saveFrame(path+"compass-######.jpg");
+    list[frameCount] = str(angle);
+  }
+  else{
+    saveStrings(path+"log.txt", list);
+    exit();
+  }
 }
 
 void updateCompass() {
@@ -93,6 +133,7 @@ void monitorInversion() {
       allow_inversion = true;
       current_frame = 0;
       duration = int(random(min_duration, max_duration));
+      //duration = int(noise(inc)*100);
     }
   }
 }
