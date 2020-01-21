@@ -1,0 +1,202 @@
+
+<html>
+<head>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<style>
+body{
+	overflow: hidden;
+}
+</style>
+
+</head>
+<body>
+<img id="img" src="bussola.jpg" width="100%" height="auto" />
+
+<script type="text/javascript">
+//IMAGE
+var compass = document.getElementById("img");
+
+//PHYSICS
+var angle = 0;
+var speed= 0;
+var acceleration = 0.02; 
+var speed_limit = 8;
+
+//COMPASS
+var duration = 0;
+var min_duration = 30;
+var max_duration = 150;
+var current_frame = 0;
+
+var allow_inversion = true;
+
+duration = Math.floor(Math.random()*max_duration) + min_duration;
+
+var term_1; 
+var term_2;
+
+var last_time1 = new Date();
+var last_time2 = new Date();
+
+var random_update = false;
+
+setInterval(function(){
+	var now = new Date();
+	var last = now - last_time1;
+	//console.log(last);
+	if (last >= 30000){
+		random_update = true;
+	}
+	else{
+		random_update = false;
+	}
+
+	if (random_update == true){
+		updateCompassRandomly();
+	}
+	else{
+		updateCompass();
+	}
+
+
+	if (speed > 0 && speed+acceleration < speed_limit) {
+		speed += acceleration;
+	}
+	else if (speed <= 0 && speed+acceleration > -speed_limit) {
+		speed += acceleration;
+	}
+	angle += speed;
+
+	compass.style.webkitTransform = "rotate("+angle+"deg)";
+	compass.style.MozTransform = "rotate("+angle+"deg)";
+	compass.style.msTransform = "rotate("+angle+"deg)";
+	compass.style.OTransform = "rotate("+angle+"deg)";
+	compass.style.transform = "rotate("+angle+"deg)";
+
+	current_frame++;
+}, 20);
+
+function updateCompassRandomly(){
+	monitorInversionRandomly();
+
+	if (current_frame >= duration && allow_inversion) {
+		acceleration *= -1;
+		allow_inversion = false;
+	}
+}
+
+function monitorInversionRandomly() {
+	if (!allow_inversion) {
+		if (speed < 0 && acceleration > 0) {		
+		}
+		else if (speed > 0 && acceleration < 0) {
+		}
+		else {
+			allow_inversion = true;
+			current_frame = 0;
+			duration = Math.floor(Math.random()*max_duration) + min_duration;
+		}
+	}		
+}
+
+function testHashtag(){
+	if (term_1.length > term_2.length){
+		console.log("termo 1");
+		return 10;
+	}
+	else{
+		console.log("termo 2");
+		return 100;
+	}
+}
+
+function updateCompass(){
+	monitorInversion();
+
+	if (current_frame >= duration && allow_inversion) {
+		acceleration *= -1;
+		allow_inversion = false;
+	}
+}
+
+function monitorInversion() {
+	if (!allow_inversion) {
+		if (speed < 0 && acceleration > 0) {		
+		}
+		else if (speed > 0 && acceleration < 0) {
+		}
+		else {
+			allow_inversion = true;
+			current_frame = 0;
+			duration = testHashtag();
+		}
+	}		
+}
+
+var counter = 0;
+setInterval(function(){
+
+  $.ajax({
+  type: "POST",
+  url: "./tmp/data_1.json",
+  contentType: 'application/json; charset=utf-8',
+  success: function (data) {
+		if(term_1 != undefined && data != undefined){
+			// console.log(term_1[term_1.length-1] );
+			// console.log(data[data.length-1]);
+	if(term_1[term_1.length-1].text != data[data.length-1].text){
+		console.log("atualizou");
+		last_time1 = new Date();
+	}
+	else{
+		//last_time1 = new Date();
+		console.log("iguais");
+	}
+}
+	term_1 = data;
+	
+	$.ajax({
+  	type: "POST",
+  	url:"./tmp/data_2.json",
+	contentType: 'application/json; charset=utf-8',
+  	success: function (data2) {
+		term_2 = data2;
+ 	},
+  	error: function (jqXHR, textStatus, errorThrown){
+  	},
+  	timeout: 120000,
+	});
+
+  },
+  error: function (jqXHR, textStatus, errorThrown){
+  },
+  timeout: 120000,
+});
+	// console.log(term_1);
+	// console.log(term_2);
+
+}, 1000)
+
+
+// $.ajax({
+//   type: "POST",
+//   url: "./tmp/data_1.json",
+//   contentType: 'application/json; charset=utf-8',
+//   success: function (data) {
+// 	// var teste = $.parseJSON(resultData);
+// 	console.log(data);
+// 	for(var i = 0; i < resultData.length; i++){
+// 		console.log(resultData[i].text);
+// 	}
+	
+//   },
+//   error: function (jqXHR, textStatus, errorThrown){
+//   },
+//   timeout: 120000,
+// });
+
+</script>
+
+
+</body>
+</html>

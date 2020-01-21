@@ -1,0 +1,17 @@
+{
+  "name": "package",
+  "version": "1.0.0",
+  "description": "",
+  "main": "hashtag.js",
+  "dependencies": {
+    "jsonfile": "^5.0.0",
+    "node": "^12.13.0",
+    "twit": "^2.2.11"
+  },
+  "scripts": {
+    "start": "node hashtag.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pedro Ferreira",
+  "license": "ISC"
+}
