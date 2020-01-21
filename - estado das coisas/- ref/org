@@ -1,14 +1,15 @@
 NODE
 
-- recupera tweets sobre dois termos em situação de oposição (bolsonaro/lula)
-– cria um array para cada termo, guardando tweets dos últimos 5 minutos
-– a cada atualização, atualiza o JSON referente a cada array
+OK - recupera tweets sobre dois termos em situação de oposição (bolsonaro/lula)
+OK – a cada atualização, atualiza o JSON referente a cada array
+OK – cria um array para cada termo, guardando tweets dos últimos 5 minutos
+– integrar com BD (SQL ou NoSQL)
 
 JS
 
-– a cada iteração, pega o JSON de cada um dos termos
-– analisa os arrays
-– plota os valores resultantes da análise na bússola
+OK – a cada iteração, pega o JSON de cada um dos termos
+~ analisa os arrays
+~ plota os valores resultantes da análise na bússola
 
 
 
@@ -16,6 +17,7 @@ JS
 
 
 
+…
 código generativo
 parâmetros:
 – velocidade da bússola: relacionada com a quantidade total de tweets dos dois termos
