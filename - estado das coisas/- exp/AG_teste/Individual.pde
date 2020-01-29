@@ -4,6 +4,7 @@ class Individual{
   int x;
   int y;
   int c;
+  String tweet;
     
   Individual (JSONObject json) {
     
@@ -11,6 +12,7 @@ class Individual{
     x = int(random(0,width));
     y = int(random(0,height));
     c = Json.getInt("id");
+    tweet = Json.getString("text");
     
   }
   
