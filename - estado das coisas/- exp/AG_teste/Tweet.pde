@@ -30,25 +30,29 @@ class Tweet{
   }
   
   void prepareArrays(){
-      
-      String s = "";
-      for(int i = 0; i < text.length(); i++){
-        if(text.charAt(i) != ' '){
-          s += text.charAt(i);
-          }
-        else {
-          if(s != ""){
-            all_words.add(s);
-          }
-          s = "";
+    
+    String s = "";
+    for(int i = 0; i < text.length(); i++){
+      if(text.charAt(i) != ' '){
+        s += text.charAt(i);
         }
-      }
-      
-      for(String word : all_words){
-        if (!words.contains(word)){
-          words.add(word);
+      else {
+        if(s != ""){
+          all_words.add(s);
         }
+        s = "";
       }
+    }
+    
+    for(String word : all_words){
+      if (!words.contains(word)){
+        words.add(word);
+      }
+    }
   }
+  
+  void wordsConnections(){
+    
+  
 }
             
