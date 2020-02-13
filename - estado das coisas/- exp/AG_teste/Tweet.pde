@@ -7,6 +7,7 @@ class Tweet{
   String text;
   ArrayList<String> all_words;
   ArrayList<String> words;
+  Grafo grafo;
     
   Tweet (JSONObject json) {
     
@@ -19,6 +20,8 @@ class Tweet{
     all_words = new ArrayList<String>();
     words = new ArrayList<String>();
     prepareArrays();
+    grafo = new Grafo(words.size());
+    wordsConnections();
     
   }
   
@@ -52,7 +55,11 @@ class Tweet{
   }
   
   void wordsConnections(){
-    
-  
+    for (int i = 0; i < words.size(); i++){
+      for (int j = i+1; j < words.size(); j++){
+        grafo.addEdge(i,j);
+      }
+    }
+  }
 }
             

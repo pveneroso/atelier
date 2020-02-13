@@ -1,23 +1,25 @@
 
 
 JSONArray data_twitter;
-Tweet[] tweet;
-String tweets = "";
+General general;
 
                   
 void setup(){
   size(500,500);
   data_twitter = loadJSONArray("C:/xampp/htdocs/atelier/- estado das coisas/- proto/bussola_descompassada_0_0_2/tmp/data_1.json");
-  tweet = new Tweet[data_twitter.size()];
+  general = new General();
   for (int i = 0; i < data_twitter.size(); i++){
-    tweet[i] = new Tweet(data_twitter.getJSONObject(i));
+    Tweet tweet = new Tweet(data_twitter.getJSONObject(i));
+    general.addTweet(tweet);
+    
   }
-  print(tweet[1].words);
+  general.createStrings();
+  print(general.Text.size());
 }
 
 void draw(){
   for (int i = 0; i < data_twitter.size(); i++){
-    tweet[i].Display();
+    //tweet[i].Display();
   }
   
   //prepareString();
