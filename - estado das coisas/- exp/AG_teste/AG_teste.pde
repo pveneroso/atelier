@@ -14,7 +14,12 @@ void setup(){
     
   }
   general.createStrings();
-  print(general.Text.size());
+  general.createGraph();
+  //print(general.strength[0][1]);
+  
+  for (int i = 0; i < general.Text.size(); i++){
+    print(i + ": " +  general.strength[1][i] + "  ");
+  }
 }
 
 void draw(){
