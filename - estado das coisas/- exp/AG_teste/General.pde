@@ -2,9 +2,14 @@ class General{
   
   ArrayList<Tweet> Tweets;
   ArrayList<String> All_texts;
-  ArrayList<String> Text; // sem repetição
+  ArrayList<String> Text;
   Grafo grafo;
   Integer[][] strength;
+  
+  //Nodes[] nodes;
+  //Links[] links;
+  
+  
   General (){
     Tweets = new ArrayList<Tweet>();
     All_texts = new ArrayList<String>();
@@ -31,7 +36,7 @@ class General{
     
   }
   
-  void createGraph(){
+  void createGraph(){ // grafo da palavra 
     grafo = new Grafo(Text.size());
     strength = new Integer[Text.size()][Text.size()];
     for (int i = 0; i < Text.size(); i++){
@@ -56,6 +61,10 @@ class General{
         }
       }
     }
+  }
+  
+  void printTweetGraph(){
+    println(Tweets.get(50).grafo);
   }
 }
   

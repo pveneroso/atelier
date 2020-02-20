@@ -1,4 +1,4 @@
-class Grafo{
+class Grafo{ // desenha e calcula as ligações
   
   int V;
   IntList[] adj;
@@ -16,4 +16,9 @@ class Grafo{
     adj[v].append(w);
     adj[w].append(v);
   }
+  
+  
+  // além de ligações precisa ter os nódulos
+  // acrescentar aqui o código de visualização
+  
 }
