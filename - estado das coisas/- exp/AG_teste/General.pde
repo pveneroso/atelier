@@ -5,7 +5,6 @@ class General{
   ArrayList<String> Text;
   Grafo grafo;
   Integer[][] strength;
-  
   //Nodes[] nodes;
   //Links[] links;
   

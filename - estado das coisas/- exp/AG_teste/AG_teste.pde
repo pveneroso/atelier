@@ -7,9 +7,12 @@ JSONArray Nodes;
 JSONArray Links;
 JSONObject JSON;
 
+
                   
 void setup(){
-  size(500,500);
+  size(1900,1000);
+  ellipseMode(CENTER);
+  
   Nodes = new JSONArray();
   Links = new JSONArray();
   JSON = new JSONObject();
@@ -40,7 +43,7 @@ void draw(){
   for (int i = 0; i < data_twitter.size(); i++){
     //tweet[i].Display();
   }
-  
+   display();
   
   //prepareString();
   //print(tweets);
@@ -57,9 +60,10 @@ void createJSON(){
   for (int i = 0; i < general.Text.size();i++){
     
     JSONObject node = new JSONObject();
-    node.setString("name", general.Text.get(i));
     node.setInt("id", i);
-    
+    node.setString("name", general.Text.get(i));
+    node.setFloat("x",random(0,width));
+    node.setFloat("y",random(0,height));
     Nodes.setJSONObject(i,node);
   }
   
@@ -87,5 +91,19 @@ void createJSON(){
   
   
 }
-    
+
+void display(){
+  for (int i = 0; i < JSON.getJSONArray("links").size(); i++){
+    int strength = JSON.getJSONArray("links").getJSONObject(i).getInt("strength");
+    stroke(255/strength);
+    int source = JSON.getJSONArray("links").getJSONObject(i).getInt("source");
+    int target = JSON.getJSONArray("links").getJSONObject(i).getInt("target");
+    line(JSON.getJSONArray("nodes").getJSONObject(source).getInt("x"), JSON.getJSONArray("nodes").getJSONObject(source).getInt("y"),JSON.getJSONArray("nodes").getJSONObject(target).getInt("x"), JSON.getJSONArray("nodes").getJSONObject(target).getInt("y"));
+  }
+  for (int i = 0; i < JSON.getJSONArray("nodes").size(); i ++){
+    fill(0);
+    ellipse(JSON.getJSONArray("nodes").getJSONObject(i).getInt("x"),JSON.getJSONArray("nodes").getJSONObject(i).getInt("y"), 8,8);
+  }
+  
+}
   
