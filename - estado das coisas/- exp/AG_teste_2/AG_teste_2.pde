@@ -1,20 +1,17 @@
 JSONArray data_twitter;
-//Grafo grafo;
+Graph Graph;
 ArrayList<Tweet> Tweets;
 ArrayList<String> All_words;
 ArrayList<String> Words;
-Integer[][] Strength;
 JSONArray Nodes;
-JSONArray Links;
 JSONObject JSON;
 
 void setup(){
   size(1900,1000);
-  Tweets = new ArrayList<Tweet>;
-  All_words = new ArrayList<String>;
-  Words = new ArrayList<String>;
+  Tweets = new ArrayList<Tweet>();
+  All_words = new ArrayList<String>();
+  Words = new ArrayList<String>();
   Nodes = new JSONArray();
-  Links = new JSONArray();
   JSON =  new JSONObject();
   
   data_twitter = loadJSONArray("data_1.json");
@@ -22,6 +19,12 @@ void setup(){
     Tweet tweet = new Tweet(data_twitter.getJSONObject(i));
     Tweets.add(tweet);
   }
+  
+  createWordArray();
+  Graph = new Graph(Words.size(), Tweets, Words);
+  JSON.setJSONArray("nodes", Nodes);
+  JSON.setJSONArray("links", Graph.Links);
+  saveJSONObject(JSON, "JSON.json");
 }
 
 void draw(){
@@ -48,8 +51,6 @@ void createWordArray(){
   }
 }
 
-void createLinks(){
-  Strength = new Integer[wor
   
   
 

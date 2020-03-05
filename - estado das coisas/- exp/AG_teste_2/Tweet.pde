@@ -12,6 +12,7 @@ class Tweet{
     Text = Text.replaceAll("[^0-9\\p{L}\\s]", "");
     All_words = new ArrayList<String>();
     Words = new ArrayList<String>();
+    prepareArrays();
   
   }
   
