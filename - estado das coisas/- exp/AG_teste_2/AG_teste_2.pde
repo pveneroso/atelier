@@ -5,6 +5,8 @@ ArrayList<String> All_words;
 ArrayList<String> Words;
 JSONArray Nodes;
 JSONObject JSON;
+String [] Text;
+ForceDirected FD;
 
 void setup(){
   size(1900,1000);
@@ -14,20 +16,29 @@ void setup(){
   Nodes = new JSONArray();
   JSON =  new JSONObject();
   
+  
   data_twitter = loadJSONArray("data_1.json");
   for (int i = 0; i < data_twitter.size(); i++){
     Tweet tweet = new Tweet(data_twitter.getJSONObject(i));
     Tweets.add(tweet);
   }
-  
+  Text = new String[data_twitter.size()];
   createWordArray();
   Graph = new Graph(Words.size(), Tweets, Words);
   JSON.setJSONArray("nodes", Nodes);
   JSON.setJSONArray("links", Graph.Links);
-  saveJSONObject(JSON, "JSON.json");
+  //saveJSONObject(JSON, "JSON.json");
+  //for (int i = 0; i < Tweets.size();i++){
+  //  Text[i] = Tweets.get(i).Text_rough;
+  //}
+  
+  //saveStrings("text.txt", Text);
+  FD = new ForceDirected(JSON);
 }
 
 void draw(){
+  background(255);
+  FD.Display();
 }
 
 void createWordArray(){
@@ -49,7 +60,11 @@ void createWordArray(){
       Nodes.setJSONObject(Words.indexOf(word),node);
     }
   }
+  
+  
 }
+
+
 
   
   

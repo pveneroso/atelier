@@ -2,6 +2,7 @@ class Tweet{
   
   JSONObject Json;
   String Text;
+  String Text_rough;
   ArrayList<String> All_words;
   ArrayList<String> Words;
   
@@ -9,6 +10,7 @@ class Tweet{
     
     Json = json;
     Text = Json.getString("text");
+    Text_rough = Text;
     Text = Text.replaceAll("[^0-9\\p{L}\\s]", "");
     All_words = new ArrayList<String>();
     Words = new ArrayList<String>();
