@@ -2,9 +2,9 @@ class ForceDirected{
   JSONObject JSON = new JSONObject();
   ArrayList<Node> Nodes = new ArrayList<Node>();
   //ArrayList<Link> Links = new ArrayList<Link>();
-  float min_size = 5.0;
-  float elasticity = 10.0;
-  float repulsion = 5;
+  float min_size = 80;
+  float elasticity = 200.0;
+  float repulsion = 15;
   
   ForceDirected(JSONObject json){
     JSON = json;
@@ -24,7 +24,7 @@ class ForceDirected{
     }
     
     linkNodes();
-    Display();
+    //Display();
       
   } 
   
@@ -40,8 +40,13 @@ class ForceDirected{
   
   void Display(){
     for(Node node: Nodes){
+      //versão estática
       reflow(node);
       node.draw();
+      
+      
+      //versão com movimento
+      //node.flock(Nodes);
     }
   }
   
@@ -50,32 +55,34 @@ class ForceDirected{
     float dx = 0;
     float dy = 0;
     for(Node ni: incoming) {
-      dx += (ni.x-n.x);
-      dy += (ni.y-n.y);
+      dx += (ni.position.x-n.position.x);
+      dy += (ni.position.y-n.position.y);
     }
     //float len = sqrt(dx*dx + dy*dy);
     float angle = getDirection(dx, dy);
     float[] motion = rotateCoordinate(0.9*repulsion,0.0,angle);
-    float px = n.x;
-    float py = n.y;
-    n.x += motion[0];
-    n.y += motion[1];
-    if(n.x<0){
-      n.x=0;
+    
+    float px = n.position.x;
+    float py = n.position.y;
+    n.position.x += motion[0];
+    n.position.y += motion[1];
+    
+    if(n.position.x<0){
+      n.position.x=0;
     }
-    else if(n.x>width){
-      n.x=width;
+    else if(n.position.x>width){
+      n.position.x=width;
     }
-    if(n.y<0){
-      n.y = 0;
+    if(n.position.y<0){
+      n.position.y = 0;
     }
-    else if(n.y>height){
-      n.y = height;
+    else if(n.position.y>height){
+      n.position.y = height;
     }
     float shortest = n.getShortestLinkLength();
     if(shortest<min_size || shortest> elasticity*2){
-      n.x=px;
-      n.y = py;
+      n.position.x=px;
+      n.position.y = py;
     }
   }
 }
