@@ -34,14 +34,23 @@ var T_3 = new Twit(config);
   })
 })*/
 
-var stream_1 = T_1.stream('statuses/filter', { track: 'bolsonaro' , tweet_mode:'extended'})
+var stream_1 = T_1.stream('statuses/filter', { track: 'bolsonaro' , tweet_mode:"extended"})
 var counter_1 = 0;
 
-var stream_2 = T_2.stream('statuses/filter', { track: 'lula' })
+//var stream_2 = T_2.stream('statuses/filter', { track: 'lula' })
 var counter_2 = 0;
-
+/*
+T_2.stream('statuses/filter', {track: 'lula', function (stream) {
+  stream.on('data', function (tweet) {
+       let text = tweet.extended_tweet?tweet.extended_tweet.full_text:tweet.full_text?tweet.full_text:tweet.text;
+       console.log(text);
+  }),
+  stream.on('error', function (error) {
+      console.log("error:", error);
+  })
+}})
+*/
 stream_1.on('tweet', function (tweet) { 
-  if (tweet.retweeted_statuses == false){
   counter_1++;
   console.log(counter_1);
   // console.log(tweet);
@@ -51,8 +60,16 @@ stream_1.on('tweet', function (tweet) {
   array_1[array_1.length-1].id = counter_1;
   array_1[array_1.length-1].created_at = tweet.created_at;
   array_1[array_1.length-1].time = new Date();
-  console.log(tweet.truncated ? tweet.extended_tweet.full_text : tweet.text);
-  array_1[array_1.length-1].text = tweet.full_text;
+  //let text = tweet.extended_tweet?tweet.extended_tweet.full_text:tweet.full_text?tweet.full_text:tweet.text;
+  if (tweet.retweeted_status == false){
+    array_1[array_1.length-1].text = tweet.full_text;
+    console.log("sem rt");
+  }
+  else{
+    array_1[array_1.length-1].text = tweet.retweeted_status.extended_tweet.full_text;
+    console.log("com rt");
+  }
+  console.log(array_1[array_1.length-1].text);
   //console.log(array_1[array_1.length-1]);
   console.log(array_1.length);
   var jsonArray = JSON.parse(JSON.stringify(array_1))
@@ -70,9 +87,9 @@ stream_1.on('tweet', function (tweet) {
   }*/
 
   //array_1.forEach(testTime_1);
-}
+
 //console.log(tweet);
-})
+}) 
 /*stream_2.on('tweet', function (tweet) {
   counter_2++;
   console.log(counter_2);

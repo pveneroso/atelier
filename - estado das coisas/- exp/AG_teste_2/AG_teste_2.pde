@@ -9,7 +9,7 @@ String [] Text;
 ForceDirected FD;
 
 void setup(){
-  size(1900,1000);
+  //size(1900,1000);
   Tweets = new ArrayList<Tweet>();
   All_words = new ArrayList<String>();
   Words = new ArrayList<String>();
@@ -17,7 +17,7 @@ void setup(){
   JSON =  new JSONObject();
   
   
-  data_twitter = loadJSONArray("data_fdteste.json");
+  data_twitter = loadJSONArray("data_1.json");
   for (int i = 0; i < data_twitter.size(); i++){
     Tweet tweet = new Tweet(data_twitter.getJSONObject(i));
     Tweets.add(tweet);
@@ -33,12 +33,13 @@ void setup(){
   //}
   
   //saveStrings("text.txt", Text);
-  FD = new ForceDirected(JSON);
+  //FD = new ForceDirected(JSON);
+  println(Tweets.get(4).All_words);
 }
 
 void draw(){
   background(255);
-  FD.Display();
+  //FD.Display();
 }
 
 void createWordArray(){
@@ -69,7 +70,6 @@ void mouseDragged(){
     if(mouseX <= node.position.x + node.r1 && mouseX >= node.position.x - node.r1 && mouseY <= node.position.y + node.r1 && mouseY >= node.position.y - node.r1){
       node.setPosition(mouseX,mouseY);
     }
-  //ellipse(mouseX, mouseY, 30, 30);
   }
 }
 
